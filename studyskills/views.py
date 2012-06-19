@@ -41,7 +41,7 @@ def study_skills_show_assessment(request):
            return redirect('assessment:study-skills-get-result',
                    result_id=result.pk)
     else:
-       form = forms.OnlineReadinessForm()
+       form = forms.StudySkillsForm()
     return direct_to_template(request,
                               'studyskills/study-skills.html',
                               {'form': form})
