@@ -69,7 +69,6 @@ class StudySkillsForm(forms.Form):
         "courses where we are encouraged to read around the subject a lot for ourselves.",
         "books which challenge you and provide explanations which go beyond the lectures.",
         "books which give you definite facts and information which can easily be learned.",
-        "How well do you think you have been doing in your assessed work overall, so far?"
         ]
         assess = [
         "How well do you think you have been doing in your assessed work overall, so far?"
