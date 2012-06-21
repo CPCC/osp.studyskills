@@ -1,0 +1,6 @@
+{% for score in scores %}
+    {{ score.category }} {{ score.score|floatformat:2 }}%<br />
+    {% for subcat in score.sub_cats %}
+        {{ subcat.sub_cat }} {{ subcat.sub_cat_score|floatformat:2 }}%<br />
+    {% endfor %}
+{% endfor %}
