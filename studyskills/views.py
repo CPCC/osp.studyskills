@@ -74,9 +74,16 @@ def study_skills_student_results(request, student_id):
         raise PermissionDenied
 
     results = models.StudySkillsResult.objects.filter(student=student_id)
-    return direct_to_template(request,
-                              'studyskills/study-skills-student-results.html',
-                              {'results': results,})
+    # return direct_to_template(request,
+    #                           'studyskills/study-skills-student-results.html',
+    #                           {'results': results,})
+
+    json_data = []
+    for result in results:
+        json_data.append({'id': result.pk,
+                          'date_taken': '%s' % result.date_taken})
+    json_data = json.dumps(json_data)
+    return HttpResponse(json_data)
 
 
 @login_required
