@@ -50,6 +50,17 @@
     		white-space: nowrap;
     		text-align: center;
 		}
+		.error-message
+		{
+		    color: #AA0000;
+		}
+
+		.errors
+		{
+		    padding: 10px 15px;
+		    background: #fcf0f0;
+		    border: 1px solid #F1B0B0;
+		}
 
 	</style>
 	{{ block.super }}
@@ -57,6 +68,7 @@
 
 {% block body %}
 <h1>Study Skills Assessment</h1>
+{% if form.errors %}<div class="errors"><span class="error-message">You must answer all of the questions. Please answer the highlighted questions.</span></div>{% endif %}
 <div id="studyskills-assessment">
 <form action="" method="POST" class="studyskills">
 	{% csrf_token %}
@@ -64,38 +76,38 @@
 		{% if item.name|add:"0" > 52 and item.name|add:"0" < 61 %}
 			{% if item.name|add:"0" == 53 %}
 				<fieldset class="studyskills-fieldset"><legend class="studyskills-legend">Please indicate your preference for the following types of courses and teaching.</legend>
-					<div class="studyskills-field {% cycle 'even' 'odd' %} studyskills-field-preference">
-					    <span class="studyskills-question">{{ item.label }}</span>{{ item }}
+					<div class="studyskills-field {% cycle 'even' 'odd' %} studyskills-field-preference {% if item.errors %}errors{% endif %}">
+					    <span class="studyskills-question {% if item.errors %}error-message{% endif %}">{{ item.label }}</span>{{ item }}
 					</div>
 			{% else %}
-				<div class="studyskills-field {% cycle 'odd' 'even' %} studyskills-field-preference">
-				    <span class="studyskills-question">{{ item.label }}</span>{{ item }}
+				<div class="studyskills-field {% cycle 'odd' 'even' %} studyskills-field-preference {% if item.errors %}errors{% endif %}">
+				    <span class="studyskills-question {% if item.errors %}error-message{% endif %}">{{ item.label }}</span>{{ item }}
 				</div>
 			{% endif %}
 		{% else %}
 			{% if item.name|add:"0" == 61 %} 
 				</fieldset>
 				<fieldset class="studyskills-fieldset"><legend class="studyskills-legend">How well do you feel you have been doing with your work so far?</legend>
-					<div class="studyskills-field {% cycle 'even' 'odd' %} studyskills-field-self">
-						<span class="studyskills-question">{{ item.label }}</span>{{ item }}
+					<div class="studyskills-field {% cycle 'even' 'odd' %} studyskills-field-self {% if item.errors %}errors{% endif %}">
+						<span class="studyskills-question {% if item.errors %}error-message{% endif %}">{{ item.label }}</span>{{ item }}
 					</div>
 				</fieldset>
 			{% else %}
 				{% if item.name|add:"0" == 1%}
 					</fieldset>
 					<fieldset class="studyskills-fieldset"><legend class="studyskills-legend">Please indicate your relative agreement or disagreement with the following statements.</legend>
-						<div class="studyskills-field {% cycle 'even' 'odd' %}">
-							<span class="studyskills-question">{{ item.label }}</span>{{ item }}
+						<div class="studyskills-field {% cycle 'even' 'odd' %} {% if item.errors %}errors{% endif %}">
+							<span class="studyskills-question {% if item.errors %}error-message{% endif %}">{{ item.label }}</span>{{ item }}
 						</div>
 				{% else %}
 					{% if item.name|add:"0" == 52 %}
-						<div class="studyskills-field {% cycle 'odd' 'even' %}">
-							<span class="studyskills-question">{{ item.label }}</span>{{ item }}
+						<div class="studyskills-field {% cycle 'odd' 'even' %} {% if item.errors %}errors{% endif %}">
+							<span class="studyskills-question {% if item.errors %}error-message{% endif %}">{{ item.label }}</span>{{ item }}
 						</div>
 						</fieldset>
 					{% else %}
-						<div class="studyskills-field {% cycle 'odd' 'even' %}">
-							<span class="studyskills-question">{{ item.label }}</span>{{ item }}
+						<div class="studyskills-field {% cycle 'odd' 'even' %} {% if item.errors %}errors{% endif %}">
+							<span class="studyskills-question {% if item.errors %}error-message{% endif %}">{{ item.label }}</span>{{ item }}
 						</div>
 					{% endif %}
 				{% endif %}
