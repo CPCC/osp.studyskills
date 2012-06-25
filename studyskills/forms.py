@@ -66,7 +66,7 @@ class StudySkillsForm(forms.Form):
         ["It is important for me to be able to see the reason behind things.", "D", "E"],
         ["I do not find it at all difficult to motivate myself.", "S", "A"],
         ["I like to be told precisely what to do in essays or other assignments.", "A", "S"],
-        ["I sometimes get ‘hooked’ on academic topics and feel I would like to keep on studying them.", "D", "I"]
+        ["I sometimes get hooked on academic topics and feel I would like to keep on studying them.", "D", "I"]
         ]
         preferences =[
         ["instructors who tell us exactly what to put down in our notes.", "P", "T"],
