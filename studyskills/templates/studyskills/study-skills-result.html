@@ -1,6 +1,5 @@
 
 
-{% block styles %}
 <style>
 .study-skills-category, .study-skills-category-last
 {
@@ -49,10 +48,6 @@
 }
 
 </style>
-{{ block.super }}
-{% endblock %}
-
-{% block body %}
 <h1>Study Skills</h1>
 <div id="score-details">
 {% for score in scores %}
@@ -85,4 +80,3 @@
     {% endif %}
 {% endfor %}
 </div>
-{% endblock %}

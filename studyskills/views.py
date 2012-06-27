@@ -184,4 +184,4 @@ def study_skills_get_result(request, result_id):
                       ]
 
     # Display the results
-    return direct_to_template(request, 'studyskills/study-skills-result.html', {'scores': compiled_scores})
+    return direct_to_template(request, 'studyskills/study-skills-result-nav.html', {'scores': compiled_scores})
