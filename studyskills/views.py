@@ -53,7 +53,7 @@ def study_skills_show_assessment(request):
            # Display the results of the assessment based on the student's
            # responses (or a message indicating successful submission, etc.).
            return redirect('assessment:study-skills-get-result',
-                   result_id=result.pk)
+                   result_id=result.pk, is_intitial=True)
     else:
        form = forms.StudySkillsForm()
     return direct_to_template(request,
@@ -87,7 +87,7 @@ def study_skills_student_results(request, student_id):
 
 
 @login_required
-def study_skills_get_result(request, result_id):
+def study_skills_get_result(request, result_id, is_initial=False):
     """
         Retrieves the specified assessment result record, scores it,
         and displays the outcome.
@@ -184,4 +184,7 @@ def study_skills_get_result(request, result_id):
                       ]
 
     # Display the results
-    return direct_to_template(request, 'studyskills/study-skills-result-nav.html', {'scores': compiled_scores})
+    if is_initial:
+        return direct_to_template(request, 'studyskills/study-skills-result-nav.html', {'scores': compiled_scores})
+
+    return direct_to_template(request, 'studyskills/study-skills-result.html', {'scores': compiled_scores})
