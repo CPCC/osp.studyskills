@@ -52,8 +52,8 @@ def study_skills_show_assessment(request):
            result.save()
            # Display the results of the assessment based on the student's
            # responses (or a message indicating successful submission, etc.).
-           return redirect('assessment:study-skills-get-result',
-                   result_id=result.pk, is_intitial=True)
+           return redirect('assessment:study-skills-get-result-initial',
+                   result_id=result.pk)
     else:
        form = forms.StudySkillsForm()
     return direct_to_template(request,
