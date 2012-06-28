@@ -110,7 +110,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
               'S': {'total': 0, 'count_total': 0},
               'A': {'total': 0, 'count_total': 0},
               'P': {'total': 0, 'count_total': 0}
-             } 
+             }
     subscores = {'DS': {'total': 0, 'count_total': 0},
                  'DR': {'total': 0, 'count_total': 0},
                  'DE': {'total': 0, 'count_total': 0},
@@ -133,14 +133,14 @@ def study_skills_get_result(request, result_id, is_initial=False):
         if 'score_category' in answer and 'score_subcategory' in answer:
             if answer['score_category'] != '' and answer['score_subcategory'] != '':
                 subscores[answer['score_category']+answer['score_subcategory']]['total']+=float(answer['answer'])
-                subscores[answer['score_category']+answer['score_subcategory']]['count_total']+=15
+                subscores[answer['score_category']+answer['score_subcategory']]['count_total']+=5
             
                 scores[answer['score_category']]['total']+=float(answer['answer'])
-                scores[answer['score_category']]['count_total']+=15    
+                scores[answer['score_category']]['count_total']+=5    
 
     # Compile the information and calculate the actual scores
     compiled_scores = [{'category':'Deep approach', 'score': scores['D']['total'] / scores['D']['count_total'] * 100,
-                                  'sub_cats': [{'sub_cat': 'Seeking meaning', 'sub_cat_score': subscores['DS']['total'] / subscores['DS']['count_total'] * 100, 
+                                  'sub_cats': [{'sub_cat': 'Seeking meaning', 'sub_cat_score': subscores['DS']['total'] / subscores['DS']['count_total'] * 100,
                                                 'description': 'Trying to understand the meaning of what you are learning and reflecting on what you are trying to learn and the ideas behind your assignments.'},
                                                {'sub_cat': 'Relating ideas', 'sub_cat_score': subscores['DR']['total'] / subscores['DR']['count_total'] * 100,
                                                 'description': 'Seeing how ideas relate to other topics or thoughts of your own.'},
