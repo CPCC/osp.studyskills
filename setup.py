@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'studyskills',
-    version = '1.0.0',
+    version = '1.0.1',
     author = 'Central Piedmont Community College',
     description = ('Assessment used to evaluate student study skills.'),
     packages = find_packages(),
