@@ -10,6 +10,10 @@
 {
 	width: auto;
 }
+#score-details
+{
+	margin-bottom: 20px;
+}
 #sstoolTip
 {
 	width: 20px;
@@ -21,7 +25,7 @@
 }
 .ss-description-category
 {
-	margin-top: 30px;
+	margin-top: 10px;
 }
 .ss-description-category span
 {
@@ -33,6 +37,12 @@
 	background-color: #F1F1F1;
 	border: 1px solid #333;
 	padding: 3px 10px;
+}
+.ss-details-button
+{
+	padding: 1px 10px;
+	margin-left: 10px;
+	margin-bottom: 5px;
 }
 /*#sstoolTip:before
 {
@@ -63,13 +73,7 @@
 }
 #score-details
 {
-	height: 430px;
-}
-#ss-descriptions-links input
-{
-	margin-right: 225px;
-	margin-left: 20px;
-	padding: 1px 10px;
+	height: 440px;
 }
 </style>
 
@@ -83,27 +87,12 @@
 <div id="score-details">
 	<div id="sstoolTip" style="display: none;"></div>
 	{% for score in scores %}
-		<div id="study-skills-{{ score.id }}" class="study-skills-graph"></div>
+		<div class="study-skills-graph">
+		<div id="study-skills-{{ score.id }}"></div>
+ 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ score.id }}')">
+ 		</div>
 	{% endfor %}
 </div>
-<div id="ss-descriptions-links">
-	{% for score in scores %}
-	<input type="button" value="Details" onclick="showDetails('{{ score.id }}')">
-	{% endfor %}
-</div>
-<div id="ss-descriptions">
-	{% for score in scores %}
-		<div id="ss-description-{{ score.id }}" class="ss-description-category" style="display: none;">
-			<fieldset>
-				<legend>{{ score.category }}</legend>
-			{% for subcat in score.sub_cats %}
-			<p><span>{{ subcat.sub_cat }} - </span>{{ subcat.description }}</p>
-			{% endfor %}
-		</fieldset>
-		</div>
-	{% endfor %}
-</div>
-
 
 {% for score in scores %}
 	<script>
@@ -129,13 +118,13 @@
 				// Set the color for the bars and the hover tooltip
 				ssBar.attr({fill: "#6D95F3", stroke: "#777"}).hover(
 					function(e){
-						this.transform("s1.1");
+						this.transform("s1.1").attr({"stroke-width": 3});
 						$("#sstoolTip").html(this.attr('height')/11.25);
     					$("#sstoolTip").show();
     					$("#sstoolTip").offset({left:e.pageX-10,top:e.pageY-65});
 					},
 					function(){
-						this.transform("s1");
+						this.transform("s1").attr({"stroke-width": 1});
 						$("#sstoolTip").hide();
 					});
 				//Setting the text labels for each bar and rotating them.
@@ -154,20 +143,19 @@
 	  		    scaleLabel = scaleLabel-5;
 	  		}
 		</script>
-
 		{% for subcat in score.sub_cats %}
 			<script>
 				var ssBar = ssChart.rect(barDistance,275-({{subcat.sub_cat_score}}/16*180),30,({{subcat.sub_cat_score}}/16*180),3);
 				// Set the color for the bars and the hover tooltip
 				ssBar.attr({fill: "#6D95F3", stroke: "#777"}).hover(
 					function(e){
-						this.transform("s1.1");
+						this.transform("s1.1").attr({"stroke-width": 3});
 						$("#sstoolTip").html(this.attr('height')/11.25);
     					$("#sstoolTip").show();
     					$("#sstoolTip").offset({left:e.pageX-10,top:e.pageY-65});
 					},
 					function(){
-						this.transform("s1");
+						this.transform("s1").attr({"stroke-width": 1});
 						$("#sstoolTip").hide();
 					});
 				//Setting the text labels for each bar and rotating them.
@@ -177,6 +165,20 @@
 	    {% endfor %}
     {% endif %}
 {% endfor %}
+
+<div id="ss-descriptions">
+	{% for score in scores %}
+		<div id="ss-description-{{ score.id }}" class="ss-description-category" style="display: none;">
+			<fieldset>
+				<legend>{{ score.category }}</legend>
+			{% for subcat in score.sub_cats %}
+			<p><span>{{ subcat.sub_cat }} - </span>{{ subcat.description }}</p>
+			{% endfor %}
+		</fieldset>
+		</div>
+	{% endfor %}
+</div>
+
 <script>
 function showDetails(name)
 {
