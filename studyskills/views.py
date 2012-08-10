@@ -134,57 +134,69 @@ def study_skills_get_result(request, result_id, is_initial=False):
             if answer['score_category'] != '' and answer['score_subcategory'] != '':
                 subscores[answer['score_category']+answer['score_subcategory']]['total']+=float(answer['answer'])
                 subscores[answer['score_category']+answer['score_subcategory']]['count_total']+=5
-            
+
                 scores[answer['score_category']]['total']+=float(answer['answer'])
-                scores[answer['score_category']]['count_total']+=5    
+                scores[answer['score_category']]['count_total']+=5
 
     # Compile the information and calculate the actual scores
-    compiled_scores = [{'category':'Deep approach', 'score': scores['D']['total'] / scores['D']['count_total'] * 100,
-                                  'sub_cats': [{'sub_cat': 'Seeking meaning', 'sub_cat_score': subscores['DS']['total'] / subscores['DS']['count_total'] * 100,
+    compiled_scores = [{'category':'Deep approach', 'score': scores['D']['total'],
+                                  'sub_cats': [{'sub_cat': 'Seeking meaning', 'sub_cat_score': subscores['DS']['total'],
                                                 'description': 'Trying to understand the meaning of what you are learning and reflecting on what you are trying to learn and the ideas behind your assignments.'},
-                                               {'sub_cat': 'Relating ideas', 'sub_cat_score': subscores['DR']['total'] / subscores['DR']['count_total'] * 100,
+                                               {'sub_cat': 'Relating ideas', 'sub_cat_score': subscores['DR']['total'],
                                                 'description': 'Seeing how ideas relate to other topics or thoughts of your own.'},
-                                               {'sub_cat': 'Use of evidence', 'sub_cat_score': subscores['DE']['total'] / subscores['DE']['count_total'] * 100,
+                                               {'sub_cat': 'Use of evidence', 'sub_cat_score': subscores['DE']['total'],
                                                 'description':'Looking at the evidence and details of what you are learning, questioning things you read and hear, and reaching your own conclusions.'},
-                                               {'sub_cat': 'Interest in ideas', 'sub_cat_score': subscores['DI']['total'] / subscores['DI']['count_total'] * 100,
+                                               {'sub_cat': 'Interest in ideas', 'sub_cat_score': subscores['DI']['total'],
                                                 'description': 'Being interested in the things you learn and thinking about them even when you are doing other things.'}
                                               ]
                            },
-                           {'category':'Strategic approach', 'score': scores['S']['total'] / scores['S']['count_total'] * 100,
-                                  'sub_cats': [{'sub_cat': 'Organized studying', 'sub_cat_score': subscores['SO']['total'] / subscores['SO']['count_total'] * 100,
+                           {'category':'Strategic approach', 'score': scores['S']['total'],
+                                  'sub_cats': [{'sub_cat': 'Organized studying', 'sub_cat_score': subscores['SO']['total'],
                                                 'description':'Planning your studying so that you are able to focus, study for tests, follow up on additional information, plan in advance.'},
-                                               {'sub_cat': 'Time management', 'sub_cat_score': subscores['ST']['total'] / subscores['ST']['count_total'] * 100,
+                                               {'sub_cat': 'Time management', 'sub_cat_score': subscores['ST']['total'],
                                                 'description':'Organizing study time so that you make good use of your time and do not procrastinate.'},
-                                               {'sub_cat': 'Alertness to assessment demands', 'sub_cat_score': subscores['SD']['total'] / subscores['SD']['count_total'] * 100,
+                                               {'sub_cat': 'Alertness to demands', 'sub_cat_score': subscores['SD']['total'],
                                                 'description':'Focusing on how to impress your instructor and get the best grades possible by thinking about how assignments will be graded and what instructors think is important.'},
-                                               {'sub_cat': 'Achieving', 'sub_cat_score': subscores['SA']['total'] / subscores['SA']['count_total'] * 100,
+                                               {'sub_cat': 'Achieving', 'sub_cat_score': subscores['SA']['total'],
                                                 'description':'Working hard so that you feel like you are doing your best and determined to do well.'},
-                                               {'sub_cat': 'Monitoring effectiveness', 'sub_cat_score': subscores['SM']['total'] / subscores['SM']['count_total'] * 100,
+                                               {'sub_cat': 'Monitoring effectiveness', 'sub_cat_score': subscores['SM']['total'],
                                                 'description':'Thinking about how best to approach assignments and double checking your work to make sure you did what you were supposed to do.'}
                                               ]
                            },
-                           {'category':'Surface apathetic approach', 'score': scores['A']['total'] / scores['A']['count_total'] * 100,
-                                  'sub_cats': [{'sub_cat': 'Lack of purpose', 'sub_cat_score': subscores['AL']['total'] / subscores['AL']['count_total'] * 100,
+                           {'category':'Surface approach', 'score': scores['A']['total'],
+                                  'sub_cats': [{'sub_cat': 'Lack of purpose', 'sub_cat_score': subscores['AL']['total'],
                                                 'description':'Questioning whether your coursework is worthwhile, not finding your courses interesting and questioning why you decided to go to college.'},
-                                               {'sub_cat': 'Unrelated memorizing', 'sub_cat_score': subscores['AU']['total'] / subscores['AU']['count_total'] * 100,
+                                               {'sub_cat': 'Unrelated memorizing', 'sub_cat_score': subscores['AU']['total'],
                                                 'description':'Memorizing information in unrelated bits and pieces and writing down everything you can in lectures.'},
-                                               {'sub_cat': 'Syllabus-boundness', 'sub_cat_score': subscores['AS']['total'] / subscores['AS']['count_total'] * 100,
+                                               {'sub_cat': 'Syllabus-boundness', 'sub_cat_score': subscores['AS']['total'],
                                                 'description':'Wanting to told exactly what to do on assignments and learning just enough to pass the course.'},
-                                               {'sub_cat': 'Fear of failure', 'sub_cat_score': subscores['AF']['total'] / subscores['AF']['count_total'] * 100,
+                                               {'sub_cat': 'Fear of failure', 'sub_cat_score': subscores['AF']['total'],
                                                 'description':'Worrying about your workload and panicking if you get behind in your work.'}
-                                              ]
-                           },
-                           {'category':'Preferences for different types of course and teaching', 'score': scores['P']['total'] / scores['P']['count_total'] * 100,
-                                  'sub_cats': [{'sub_cat': 'Supporting understanding', 'sub_cat_score': subscores['PS']['total'] / subscores['PS']['count_total'] * 100,
-                                                'description':'If you scored highly in this category, it indicates that you prefer instructors who allow you to learn how to think for yourself and assignments that challenge you and allow you to show that you have thought about the course material.'},
-                                               {'sub_cat': 'Transmitting information', 'sub_cat_score': subscores['PT']['total'] / subscores['PT']['count_total'] * 100,
-                                                'description':'If you scored highly in this category, it indicates that you prefer instructors who tell you exactly what information you need to learn and assignments that focus only on that information so you do not have to do extra work.'}
                                               ]
                            }
                       ]
+    #Derrive the highest preference score and return it.
+    if subscores['PS']['total'] > subscores['PT']['total']:
+      course_preference = [{'sub_cat': 'Supporting Understanding', 'sub_cat_score': subscores['PS']['total'],
+                            'description':'allow you to learn how to think for yourself and assignments that challenge you and allow you to show that you have thought about the course material.'}
+                            ]
+    else:
+      course_preference = [{'sub_cat': 'Transmitting Information', 'sub_cat_score': subscores['PT']['total'],
+                            'description':'tell you exactly what information you need to learn and assignments that focus only on that information.'}
+                            ]
+    #Save the scores from highest to lowest and pass them as an array
+    ordered_subscores={}
+    deep  = subscores['DS']['total']
+    strat = scores['S']['total']
+    surface = scores['A']['total']
+    if deep > strat and deep > surface:
+      ordered_subscores["Deep"] = deep
+      if strat > surface:
+        ordered_subscores["Strat"] = strat
+
 
     # Display the results
     if is_initial:
-        return direct_to_template(request, 'studyskills/study-skills-result-nav.html', {'scores': compiled_scores})
+        return direct_to_template(request, 'studyskills/study-skills-result-nav.html', {'scores': compiled_scores, 'course_preference': course_preference})
 
-    return direct_to_template(request, 'studyskills/study-skills-result.html', {'scores': compiled_scores})
+    return direct_to_template(request, 'studyskills/study-skills-result.html', {'scores': compiled_scores, 'course_preference': course_preference})
