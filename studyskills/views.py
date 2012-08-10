@@ -139,7 +139,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
                 scores[answer['score_category']]['count_total']+=5
 
     # Compile the information and calculate the actual scores
-    compiled_scores = [{'category':'Deep approach', 'score': scores['D']['total'],
+    compiled_scores = [{'id':'deep', 'category':'Deep approach', 'score': scores['D']['total'],
                                   'sub_cats': [{'sub_cat': 'Seeking meaning', 'sub_cat_score': subscores['DS']['total'],
                                                 'description': 'Trying to understand the meaning of what you are learning and reflecting on what you are trying to learn and the ideas behind your assignments.'},
                                                {'sub_cat': 'Relating ideas', 'sub_cat_score': subscores['DR']['total'],
@@ -150,7 +150,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
                                                 'description': 'Being interested in the things you learn and thinking about them even when you are doing other things.'}
                                               ]
                            },
-                           {'category':'Strategic approach', 'score': scores['S']['total'],
+                           {'id':'strategic', 'category':'Strategic approach', 'score': scores['S']['total'],
                                   'sub_cats': [{'sub_cat': 'Organized studying', 'sub_cat_score': subscores['SO']['total'],
                                                 'description':'Planning your studying so that you are able to focus, study for tests, follow up on additional information, plan in advance.'},
                                                {'sub_cat': 'Time management', 'sub_cat_score': subscores['ST']['total'],
@@ -163,7 +163,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
                                                 'description':'Thinking about how best to approach assignments and double checking your work to make sure you did what you were supposed to do.'}
                                               ]
                            },
-                           {'category':'Surface approach', 'score': scores['A']['total'],
+                           {'id':'surface', 'category':'Surface approach', 'score': scores['A']['total'],
                                   'sub_cats': [{'sub_cat': 'Lack of purpose', 'sub_cat_score': subscores['AL']['total'],
                                                 'description':'Questioning whether your coursework is worthwhile, not finding your courses interesting and questioning why you decided to go to college.'},
                                                {'sub_cat': 'Unrelated memorizing', 'sub_cat_score': subscores['AU']['total'],
@@ -184,16 +184,6 @@ def study_skills_get_result(request, result_id, is_initial=False):
       course_preference = [{'sub_cat': 'Transmitting Information', 'sub_cat_score': subscores['PT']['total'],
                             'description':'tell you exactly what information you need to learn and assignments that focus only on that information.'}
                             ]
-    #Save the scores from highest to lowest and pass them as an array
-    ordered_subscores={}
-    deep  = subscores['DS']['total']
-    strat = scores['S']['total']
-    surface = scores['A']['total']
-    if deep > strat and deep > surface:
-      ordered_subscores["Deep"] = deep
-      if strat > surface:
-        ordered_subscores["Strat"] = strat
-
 
     # Display the results
     if is_initial:

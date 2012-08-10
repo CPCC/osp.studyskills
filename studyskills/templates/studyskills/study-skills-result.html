@@ -19,6 +19,21 @@
 	position: absolute;
 	z-index: 100;
 }
+.ss-description-category
+{
+	margin-top: 30px;
+}
+.ss-description-category span
+{
+	font-weight: bold;
+}
+.ss-description-category fieldset legend
+{
+	font-weight: bold;
+	background-color: #F1F1F1;
+	border: 1px solid #333;
+	padding: 3px 10px;
+}
 /*#sstoolTip:before
 {
 	content: ' ';
@@ -48,7 +63,13 @@
 }
 #score-details
 {
-	height: 600px;
+	height: 430px;
+}
+#ss-descriptions-links input
+{
+	margin-right: 225px;
+	margin-left: 20px;
+	padding: 1px 10px;
 }
 </style>
 
@@ -60,16 +81,34 @@
 	{% endfor %}
 </div>
 <div id="score-details">
-	<div id="sstoolTip" style="display: none;">this is a tool tip.</div>
-		{% for score in scores %}
-			<div id="study-skills-{{ score.category }}" class="study-skills-graph"></div>
-		{% endfor %}
+	<div id="sstoolTip" style="display: none;"></div>
+	{% for score in scores %}
+		<div id="study-skills-{{ score.id }}" class="study-skills-graph"></div>
+	{% endfor %}
 </div>
+<div id="ss-descriptions-links">
+	{% for score in scores %}
+	<input type="button" value="Details" onclick="showDetails('{{ score.id }}')">
+	{% endfor %}
+</div>
+<div id="ss-descriptions">
+	{% for score in scores %}
+		<div id="ss-description-{{ score.id }}" class="ss-description-category" style="display: none;">
+			<fieldset>
+				<legend>{{ score.category }}</legend>
+			{% for subcat in score.sub_cats %}
+			<p><span>{{ subcat.sub_cat }} - </span>{{ subcat.description }}</p>
+			{% endfor %}
+		</fieldset>
+		</div>
+	{% endfor %}
+</div>
+
 
 {% for score in scores %}
 	<script>
 		barDistance = 70;
-		var ssChart = Raphael("study-skills-{{ score.category }}", 275, 400);
+		var ssChart = Raphael("study-skills-{{ score.id }}", 275, 400);
 		var ssCategory = ssChart.text(100, 25, "{{ score.category }}").attr({ "font-size": 20, "font-family": "Arial, Helvetica, sans-serif", "title": "{{ score.score }}" });
 		var scaleLabel = 20;
 	</script>
@@ -93,7 +132,7 @@
 						this.transform("s1.1");
 						$("#sstoolTip").html(this.attr('height')/11.25);
     					$("#sstoolTip").show();
-    					$("#sstoolTip").offset({left:e.pageX-20,top:e.pageY-70});
+    					$("#sstoolTip").offset({left:e.pageX-10,top:e.pageY-65});
 					},
 					function(){
 						this.transform("s1");
@@ -125,7 +164,7 @@
 						this.transform("s1.1");
 						$("#sstoolTip").html(this.attr('height')/11.25);
     					$("#sstoolTip").show();
-    					$("#sstoolTip").offset({left:e.pageX-20,top:e.pageY-70});
+    					$("#sstoolTip").offset({left:e.pageX-10,top:e.pageY-65});
 					},
 					function(){
 						this.transform("s1");
@@ -138,6 +177,17 @@
 	    {% endfor %}
     {% endif %}
 {% endfor %}
+<script>
+function showDetails(name)
+{
+	if( $('#ss-description-'+name).is(':visible')){
+		$('.ss-description-category').hide(750);
+	}else{
+		$('.ss-description-category').hide(750);
+		$('#ss-description-'+name).show(750);
+	}
+}
 
+</script>
 
 {% endblock %}
