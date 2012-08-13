@@ -9,19 +9,11 @@
 .preference
 {
 	width: auto;
+	margin: -10px 0px;
 }
 #score-details
 {
 	margin-bottom: 20px;
-}
-#sstoolTip
-{
-	width: 20px;
-	font-size: 16px;
-	font-weight: bold;
-	text-align: center;
-	position: absolute;
-	z-index: 100;
 }
 .ss-description-category
 {
@@ -44,36 +36,22 @@
 	margin-left: 10px;
 	margin-bottom: 5px;
 }
-/*#sstoolTip:before
-{
-	content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 10px;
-    top: 49px;
-    border: 8px solid;
-    border-color: #111111 transparent transparent #111111;
-}
-#sstoolTip:after
-{
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 11px;
-    top: 49px;
-    border: 6px solid;
-    border-color: #fff transparent transparent #fff;
-}*/
 #study-skills-preference h2 span
 {
-	font-weight: bold;
-	font-size: 16px;
+	font-style: italic;
+}
+#study-skills-preference p, #study-skills-approach p, #study-skills-preference h2, #study-skills-approach h2
+{
+	margin:0px;
+}
+#study-skills-preference h2, #study-skills-approach h2
+{
+	margin-top: 20px;
 }
 #score-details
 {
 	height: 440px;
+	margin-top: 20px;
 }
 </style>
 
@@ -81,17 +59,93 @@
 <h1>Study Skills</h1>
 <div class="study-skills-block preference">
 	{% for preference in course_preference %}
-	<div id="study-skills-preference" value="{{ preference.sub_cat }} - {{ preference.description }}"><h2>Prefered Teaching Style : <span>{{ preference.sub_cat }}</span> </h2>This indicates that you prefer instructors who {{ preference.description }}</div>
+	<div id="study-skills-preference" value="{{ preference.sub_cat }} - {{ preference.description }}">
+	<h2>Prefered Teaching Style : <span>{{ preference.sub_cat }}</span> </h2>
+	<p>This indicates that you prefer instructors who {{ preference.description }}</p>
+	</div>
 	{% endfor %}
+	<div id="study-skills-approach">
+		<h2>Learning Approach Results</h2>
+		<p>Click the button below each chart for a detailed explanation of subscores.</p>
+	</div>
 </div>
+<!-- Drawing the graph containers on the page in order. -->
 <div id="score-details">
-	<div id="sstoolTip" style="display: none;"></div>
-	{% for score in scores %}
+	{% if scores.0.percent > scores.1.percent and scores.0.percent > scores.2.percent %}
 		<div class="study-skills-graph">
-		<div id="study-skills-{{ score.id }}"></div>
- 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ score.id }}')">
- 		</div>
-	{% endfor %}
+			<div id="study-skills-{{ scores.0.id }}"></div>
+	 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.0.id }}')">
+	 	</div>
+	 	{% if scores.1.percent > scores.2.percent %}
+		 	<div class="study-skills-graph">
+				<div id="study-skills-{{ scores.1.id }}"></div>
+		 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.1.id }}')">
+		 	</div>
+		 	<div class="study-skills-graph">
+				<div id="study-skills-{{ scores.2.id }}"></div>
+		 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.2.id }}')">
+		 	</div>
+		 {% else %}
+			<div class="study-skills-graph">
+				<div id="study-skills-{{ scores.2.id }}"></div>
+		 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.2.id }}')">
+		 	</div>
+		 	<div class="study-skills-graph">
+				<div id="study-skills-{{ scores.1.id }}"></div>
+		 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.1.id }}')">
+		 	</div>
+		 {% endif %}
+	{% else %}
+		{% if scores.1.percent > scores.0.percent and scores.1.percent > scores.2.percent %}
+		 	<div class="study-skills-graph">
+				<div id="study-skills-{{ scores.1.id }}"></div>
+		 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.1.id }}')">
+		 	</div>
+		 	{% if scores.0.percent > scores.2.percent %}
+		 		<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.0.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.0.id }}')">
+			 	</div>
+			 	<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.2.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.2.id }}')">
+			 	</div>
+			 {% else %}
+				<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.2.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.2.id }}')">
+			 	</div>
+			 	<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.0.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.0.id }}')">
+			 	</div>
+			 {% endif %}
+		{% else %}
+			<div class="study-skills-graph">
+				<div id="study-skills-{{ scores.2.id }}"></div>
+		 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.2.id }}')">
+		 	</div>
+		 	{% if scores.0.percent > scores.1.percent %}
+		 		<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.0.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.0.id }}')">
+			 	</div>
+			 	<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.1.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.1.id }}')">
+			 	</div>
+			 {% else %}
+				<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.1.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.1.id }}')">
+			 	</div>
+			 	<div class="study-skills-graph">
+					<div id="study-skills-{{ scores.0.id }}"></div>
+			 			<input class="ss-details-button" type="button" value="Details" onclick="showDetails('{{ scores.0.id }}')">
+			 	</div>
+			 {% endif %}
+		{% endif %}
+	{% endif %}
 </div>
 
 {% for score in scores %}
@@ -104,11 +158,13 @@
 	<!-- the "Stragic approach" has 5 bars and needs to be handeled differently.-->
 	{% if score.category == "Strategic approach" %}
 		<script>
+		var ssScore = ssChart.text(230, 25, "{{ score.score }}/100").attr({ "font-size": 18, "font-family": "Arial, Helvetica, sans-serif", "title": "{{ score.score }}" });
 		// Drawing the scale on the graph
 		for (i=0; i<285; i=i+57)
   		{
   		    var chartScale = ssChart.path("m45,"+(i+50)+" l190,0");
   		    var scaleText = ssChart.text(38, (i+50), scaleLabel+"");
+
   		    scaleLabel = scaleLabel-5;
   		}
 		</script>
@@ -118,14 +174,10 @@
 				// Set the color for the bars and the hover tooltip
 				ssBar.attr({fill: "#6D95F3", stroke: "#777"}).hover(
 					function(e){
-						this.transform("s1.1").attr({"stroke-width": 3});
-						$("#sstoolTip").html(this.attr('height')/11.25);
-    					$("#sstoolTip").show();
-    					$("#sstoolTip").offset({left:e.pageX-10,top:e.pageY-65});
+						this.attr({"stroke-width": 3})
 					},
 					function(){
-						this.transform("s1").attr({"stroke-width": 1});
-						$("#sstoolTip").hide();
+						this.attr({"stroke-width": 1});
 					});
 				//Setting the text labels for each bar and rotating them.
 				var ssText = ssChart.text(barDistance, 320, "{{ subcat.sub_cat }}").translate(-64,0).rotate(310, barDistance, 230).attr({ "text-anchor": "end", "font-size": 11, "font-family": "Arial, Helvetica, sans-serif" });
@@ -135,6 +187,7 @@
 	    <!-- The other two approaches. -->
 	{% else %}
 		<script>
+		var ssScore = ssChart.text(230, 25, "{{ score.score }}/80").attr({ "font-size": 18, "font-family": "Arial, Helvetica, sans-serif", "title": "{{ score.score }}" });
 		// Drawing the scale on the graph
 			for (i=0; i<285; i=i+57)
 	  		{
@@ -149,14 +202,10 @@
 				// Set the color for the bars and the hover tooltip
 				ssBar.attr({fill: "#6D95F3", stroke: "#777"}).hover(
 					function(e){
-						this.transform("s1.1").attr({"stroke-width": 3});
-						$("#sstoolTip").html(this.attr('height')/11.25);
-    					$("#sstoolTip").show();
-    					$("#sstoolTip").offset({left:e.pageX-10,top:e.pageY-65});
+						this.attr({"stroke-width": 3});
 					},
 					function(){
-						this.transform("s1").attr({"stroke-width": 1});
-						$("#sstoolTip").hide();
+						this.attr({"stroke-width": 1});
 					});
 				//Setting the text labels for each bar and rotating them.
 				var ssText = ssChart.text(barDistance, 320, "{{ subcat.sub_cat }}").translate(-52,0).rotate(310, barDistance, 230).attr({ "text-anchor": "end", "font-size": 11, "font-family": "Arial, Helvetica, sans-serif" });

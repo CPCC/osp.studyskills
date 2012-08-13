@@ -139,7 +139,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
                 scores[answer['score_category']]['count_total']+=5
 
     # Compile the information and calculate the actual scores
-    compiled_scores = [{'id':'deep', 'category':'Deep approach', 'score': scores['D']['total'],
+    compiled_scores = [{'id':'deep', 'category':'Deep approach', 'score': int(scores['D']['total']), 'percent': scores['D']['total']/ scores['D']['count_total'] * 100,
                                   'sub_cats': [{'sub_cat': 'Seeking meaning', 'sub_cat_score': subscores['DS']['total'],
                                                 'description': 'Trying to understand the meaning of what you are learning and reflecting on what you are trying to learn and the ideas behind your assignments.'},
                                                {'sub_cat': 'Relating ideas', 'sub_cat_score': subscores['DR']['total'],
@@ -150,7 +150,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
                                                 'description': 'Being interested in the things you learn and thinking about them even when you are doing other things.'}
                                               ]
                            },
-                           {'id':'strategic', 'category':'Strategic approach', 'score': scores['S']['total'],
+                           {'id':'strategic', 'category':'Strategic approach', 'score': int(scores['S']['total']), 'percent': scores['S']['total'] / scores['S']['count_total'] * 100,
                                   'sub_cats': [{'sub_cat': 'Organized studying', 'sub_cat_score': subscores['SO']['total'],
                                                 'description':'Planning your studying so that you are able to focus, study for tests, follow up on additional information, plan in advance.'},
                                                {'sub_cat': 'Time management', 'sub_cat_score': subscores['ST']['total'],
@@ -163,7 +163,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
                                                 'description':'Thinking about how best to approach assignments and double checking your work to make sure you did what you were supposed to do.'}
                                               ]
                            },
-                           {'id':'surface', 'category':'Surface approach', 'score': scores['A']['total'],
+                           {'id':'surface', 'category':'Surface approach', 'score': int(scores['A']['total']), 'percent': scores['A']['total'] / scores['A']['count_total'] * 100,
                                   'sub_cats': [{'sub_cat': 'Lack of purpose', 'sub_cat_score': subscores['AL']['total'],
                                                 'description':'Questioning whether your coursework is worthwhile, not finding your courses interesting and questioning why you decided to go to college.'},
                                                {'sub_cat': 'Unrelated memorizing', 'sub_cat_score': subscores['AU']['total'],
