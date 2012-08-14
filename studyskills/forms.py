@@ -13,7 +13,7 @@ class StudySkillsForm(forms.Form):
     """
     def __init__(self, *args, **kwargs):
         super(StudySkillsForm, self).__init__(*args, **kwargs)
-        
+
         questions = [
         ["I find places to study which allow me to focus on my work easily.", "S", "O"],
         ["When working on an assignment, I think about how to impress my instructor with my work.", "S", "D"],
@@ -69,14 +69,14 @@ class StudySkillsForm(forms.Form):
         ["I sometimes get hooked on academic topics and feel I would like to keep on studying them.", "D", "I"]
         ]
         preferences =[
-        ["instructors who tell us exactly what to put down in our notes.", "P", "T"],
-        ["instructors who encourage us to think for ourselves and show us how they themselves think.", "P", "S"],
-        ["exams which allow me to show that I have thought about the course material for myself.", "P", "S"],
-        ["exams or tests which need only the material provided in our lecture notes.", "P", "T"],
-        ["courses in which it is made very clear what work is needed for exams, so I do not have to do extra work.", "P", "T"],
-        ["courses where we are encouraged to read around the subject a lot for ourselves.", "P", "S"],
-        ["books which challenge you and provide explanations which go beyond the lectures.", "P", "S"],
-        ["books which give you definite facts and information which can easily be learned.", "P", "T"]
+        ["Instructors who tell us exactly what to put down in our notes.", "P", "T"],
+        ["Instructors who encourage us to think for ourselves and show us how they themselves think.", "P", "S"],
+        ["Exams which allow me to show that I have thought about the course material for myself.", "P", "S"],
+        ["Exams or tests which need only the material provided in our lecture notes.", "P", "T"],
+        ["Courses in which it is made very clear what work is needed for exams, so I do not have to do extra work.", "P", "T"],
+        ["Courses where we are encouraged to read around the subject a lot for ourselves.", "P", "S"],
+        ["Books which challenge you and provide explanations which go beyond the lectures.", "P", "S"],
+        ["Books which give you definite facts and information which can easily be learned.", "P", "T"]
         ]
         assess = [
         ["How well do you think you have been doing in your assessed work overall, so far?"]

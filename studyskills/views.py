@@ -169,7 +169,7 @@ def study_skills_get_result(request, result_id, is_initial=False):
                                                {'sub_cat': 'Unrelated memorizing', 'sub_cat_score': subscores['AU']['total'],
                                                 'description':'Memorizing information in unrelated bits and pieces and writing down everything you can in lectures.'},
                                                {'sub_cat': 'Syllabus-boundness', 'sub_cat_score': subscores['AS']['total'],
-                                                'description':'Wanting to told exactly what to do on assignments and learning just enough to pass the course.'},
+                                                'description':'Wanting to be told exactly what to do on assignments and learning just enough to pass the course.'},
                                                {'sub_cat': 'Fear of failure', 'sub_cat_score': subscores['AF']['total'],
                                                 'description':'Worrying about your workload and panicking if you get behind in your work.'}
                                               ]
