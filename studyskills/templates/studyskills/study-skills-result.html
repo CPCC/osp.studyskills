@@ -15,6 +15,10 @@
 {
 	margin-bottom: 20px;
 }
+#ss-descriptions
+{
+	padding-top:30px;
+}
 .ss-description-category
 {
 	margin-top: 10px;
@@ -148,6 +152,20 @@
 	{% endif %}
 </div>
 
+<div id="ss-descriptions">
+	{% for score in scores %}
+		<div id="ss-description-{{ score.id }}" class="ss-description-category" style="display: none;">
+			<fieldset>
+				<legend>{{ score.category }}</legend>
+			{% for subcat in score.sub_cats %}
+			<p><span>{{ subcat.sub_cat }} - </span>{{ subcat.description }}</p>
+			{% endfor %}
+		</fieldset>
+		</div>
+	{% endfor %}
+</div>
+
+
 {% for score in scores %}
 	<script>
 		barDistance = 70;
@@ -214,19 +232,6 @@
 	    {% endfor %}
     {% endif %}
 {% endfor %}
-
-<div id="ss-descriptions">
-	{% for score in scores %}
-		<div id="ss-description-{{ score.id }}" class="ss-description-category" style="display: none;">
-			<fieldset>
-				<legend>{{ score.category }}</legend>
-			{% for subcat in score.sub_cats %}
-			<p><span>{{ subcat.sub_cat }} - </span>{{ subcat.description }}</p>
-			{% endfor %}
-		</fieldset>
-		</div>
-	{% endfor %}
-</div>
 
 <script>
 function showDetails(name)
